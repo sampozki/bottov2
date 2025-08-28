@@ -8,7 +8,7 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 COPY *.go ./
-COPY utils/.* ./utils/
+COPY utils/*.go ./utils/
 
 RUN CGO_ENABLED=0 GOOS=linux go build -o /botto2
 
