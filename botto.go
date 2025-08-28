@@ -81,6 +81,26 @@ func newMessage(discord *discordgo.Session, message *discordgo.MessageCreate) {
 		}
 
 	// simpsons faces
+	case utils.Regex("(?i)(sotd|rotd|fotd)", message.Content):
+		site := ""
+		url := ""
+
+		switch {
+		case strings.Contains(message.Content, "sotd"):
+			site = "frinkiac"
+		case strings.Contains(message.Content, "fotd"):
+			site = "morbotron"
+		case strings.Contains(message.Content, "rotd"):
+			site = "masterofallscience"
+		}
+
+		if len(message.Content) > 5 {
+			url = utils.SendTagFace(site, message.Content[5:])
+		} else {
+			url = utils.SendFace(site)
+		}
+
+		utils.Msg(discord, message, url)
 
 	// hyvä botti & paska botti
 	case utils.Match(message.Content, "hyvä botti"):
