@@ -10,6 +10,6 @@ RUN go mod download
 COPY *.go ./
 COPY utils/*.go ./utils/
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o /botto2
+RUN CGO_ENABLED=0 GOOS=linux go build -o /bottov2
 
-CMD ["/botto2"]
+CMD ["/bottov2"]
