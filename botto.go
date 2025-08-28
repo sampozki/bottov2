@@ -6,7 +6,6 @@ import (
 	"math/rand/v2"
 	"os"
 	"os/signal"
-	"regexp"
 	"strings"
 
 	"github.com/bwmarrin/discordgo"
@@ -75,16 +74,19 @@ func newMessage(discord *discordgo.Session, message *discordgo.MessageCreate) {
 	// mau & hau
 
 	// yawn & bark
+	case utils.Regex("^yawn", message.Content):
+		utils.Msg(discord, message, "https://sampozki.fi/yawn.png")
+
+	case utils.Regex("^bark", message.Content):
+		utils.Msg(discord, message, "https://sampozki.fi/barkmanul.gif")
 
 	// tulin
-	case regexp.MustCompile("^(tu(un|li|ut|le))").MatchString(message.Content):
-		discord.ChannelMessageSend(message.ChannelID, "tirsk")
+	case utils.Regex("^(tu(un|li|ut|le))", message.Content):
+		utils.Msg(discord, message, "tirsk")
 
 	// ping
-	case regexp.MustCompile("!ping").MatchString(message.Content):
-		msg := "pong"
-		discord.ChannelMessageSend(message.ChannelID, msg)
-		utils.LogText(message.ChannelID, msg)
+	case utils.Regex("!ping", message.Content):
+		utils.Msg(discord, message, "pong")
 	}
 
 }

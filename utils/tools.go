@@ -2,6 +2,7 @@ package utils
 
 import (
 	"log"
+	"regexp"
 	"strings"
 
 	"github.com/bwmarrin/discordgo"
@@ -31,4 +32,8 @@ func Msg(discord *discordgo.Session, message *discordgo.MessageCreate, toSend st
 	msg := toSend
 	discord.ChannelMessageSend(message.ChannelID, msg)
 	LogText(message.ChannelID, msg)
+}
+
+func Regex(pattern string, input string) bool {
+	return regexp.MustCompile(pattern).MatchString(input)
 }
