@@ -90,6 +90,13 @@ func newMessage(discord *discordgo.Session, message *discordgo.MessageCreate) {
 		utils.Msg(discord, message, "HAISTA VITTU!")
 
 	// mau & hau
+	case utils.Regex("(?i)^(m+(a+u|o+u|i+u|ä+y|ö+y|i+a+u|j+ä+y))$", message.Content):
+		url := utils.Mau()
+		utils.Msg(discord, message, url)
+
+	case utils.Regex("(?i)^(?:h+)(?:a+)(?:u+)$", message.Content):
+		url := utils.Hau()
+		utils.Msg(discord, message, url)
 
 	// yawn & bark
 	case utils.Regex("^yawn", message.Content):
