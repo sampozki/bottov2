@@ -1,14 +1,15 @@
 package main
 
 import (
+	"botto/utils"
 	"fmt"
+	"math/rand/v2"
 	"os"
 	"os/signal"
-	"strings"
-	"github.com/bwmarrin/discordgo"
-	"botto/utils"
 	"regexp"
-	"math/rand/v2"
+	"strings"
+
+	"github.com/bwmarrin/discordgo"
 )
 
 // We don't want these words in our cristian server
@@ -38,25 +39,22 @@ func main() {
 	<-c
 }
 
-
 // Handler for all new messages
 func newMessage(discord *discordgo.Session, message *discordgo.MessageCreate) {
 
-// Doesn't reply to its own messages
- 	if message.Author.ID == discord.State.User.ID {
- 		return
- 	}
+	// Doesn't reply to its own messages
+	if message.Author.ID == discord.State.User.ID {
+		return
+	}
 
+	// Pre message hook switch here:
 
- 	// Switch case for functions
- 	switch {
+	// Switch case for chatting functions
+	switch {
 
 	// Test
- 	case strings.Contains(message.Content, "!hello"):
- 		msg := "Hello from Go!"
- 		discord.ChannelMessageSend(message.ChannelID, msg)
- 		utils.LogText(message.ChannelID, msg)
-
+	case strings.Contains(message.Content, "!hello"):
+		utils.Msg(discord, message, "hola")
 
 	// banlist
 	case utils.ContainsAny(message.Content, banList):
@@ -65,38 +63,28 @@ func newMessage(discord *discordgo.Session, message *discordgo.MessageCreate) {
 	// gargl
 	case strings.Contains(strings.ToLower(message.Content), "gargl"):
 		if rand.IntN(3) == 2 {
-			msg := garglList[rand.IntN(len(garglList))]
-			discord.ChannelMessageSend(message.ChannelID, msg)
- 			utils.LogText(message.ChannelID, msg)
+			utils.Msg(discord, message, garglList[rand.IntN(len(garglList))])
 		}
-
 
 	// hakemus
 
-
 	// simpsons faces
-
-
 
 	// hyvä botti & paska botti
 
-
 	// mau & hau
 
-
 	// yawn & bark
-	
 
 	// tulin
 	case regexp.MustCompile("^(tu(un|li|ut|le))").MatchString(message.Content):
 		discord.ChannelMessageSend(message.ChannelID, "tirsk")
-
 
 	// ping
 	case regexp.MustCompile("!ping").MatchString(message.Content):
 		msg := "pong"
 		discord.ChannelMessageSend(message.ChannelID, msg)
 		utils.LogText(message.ChannelID, msg)
- 	}
+	}
 
 }
