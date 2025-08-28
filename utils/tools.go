@@ -37,3 +37,20 @@ func Msg(discord *discordgo.Session, message *discordgo.MessageCreate, toSend st
 func Regex(pattern string, input string) bool {
 	return regexp.MustCompile(pattern).MatchString(input)
 }
+
+// utils.UpdateStatus(discord, "asd")
+func UpdateStatus(discord *discordgo.Session, status string) {
+	err := discord.UpdateStatusComplex(discordgo.UpdateStatusData{
+		Activities: []*discordgo.Activity{
+			{
+				Name: status,
+				Type: discordgo.ActivityTypeGame,
+			},
+		},
+		Status: "online",
+		AFK:    false,
+	})
+	if err != nil {
+		log.Fatal("Error setting activity:", err)
+	}
+}
