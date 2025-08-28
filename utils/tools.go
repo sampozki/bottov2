@@ -38,6 +38,10 @@ func Regex(pattern string, input string) bool {
 	return regexp.MustCompile(pattern).MatchString(input)
 }
 
+func Match(input string, match string) bool {
+	return strings.Contains(strings.ToLower(input), match)
+}
+
 // utils.UpdateStatus(discord, "asd")
 func UpdateStatus(discord *discordgo.Session, status string) {
 	err := discord.UpdateStatusComplex(discordgo.UpdateStatusData{

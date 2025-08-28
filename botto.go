@@ -58,7 +58,7 @@ func newMessage(discord *discordgo.Session, message *discordgo.MessageCreate) {
 	switch {
 
 	// Test
-	case strings.Contains(message.Content, "!hello"):
+	case utils.Match(message.Content, "!hello"):
 		utils.Msg(discord, message, "hola")
 		utils.UpdateStatus(discord, "asd")
 
@@ -67,13 +67,13 @@ func newMessage(discord *discordgo.Session, message *discordgo.MessageCreate) {
 		discord.ChannelMessageSend(message.ChannelID, "mur")
 
 	// gargl
-	case strings.Contains(strings.ToLower(message.Content), "gargl"):
+	case utils.Match(message.Content, "gargl"):
 		if rand.IntN(50) == 2 {
 			utils.Msg(discord, message, garglList[rand.IntN(len(garglList))])
 		}
 
 	// hakemus
-	case strings.Contains(strings.ToLower(message.Content), "hakemus"):
+	case utils.Match(message.Content, "hakemus"):
 		if rand.IntN(10) == 1 {
 			utils.Msg(discord, message, "Hyy-vä")
 		} else {
@@ -83,6 +83,11 @@ func newMessage(discord *discordgo.Session, message *discordgo.MessageCreate) {
 	// simpsons faces
 
 	// hyvä botti & paska botti
+	case utils.Match(message.Content, "hyvä botti"):
+		utils.Msg(discord, message, ":3")
+
+	case utils.Match(message.Content, "paska botti"):
+		utils.Msg(discord, message, "HAISTA VITTU!")
 
 	// mau & hau
 
