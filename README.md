@@ -1,3 +1,3 @@
 # Botto V2
 
-Now, written in Go
+New https://github.com/sampozki/botto version written in golang because why not.
