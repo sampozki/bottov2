@@ -13,7 +13,6 @@ COPY utils/*.go ./utils/
 RUN CGO_ENABLED=0 GOOS=linux go build -o /bottov2
 
 FROM alpine:3.22.1
-WORKDIR /app
-COPY --from=builder /botto2 .
+COPY --from=builder /bottov2 .
 
 CMD ["/app/bottov2"]
