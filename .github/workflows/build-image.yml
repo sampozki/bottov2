@@ -1,6 +1,4 @@
-permissions:
-  contents: read
-  packages: write
+
 
 name: Docker Image CI
 
@@ -13,6 +11,9 @@ on:
 jobs:
 
   build:
+    permissions:
+      contents: read
+      packages: write
 
     runs-on: ubuntu-latest
 
